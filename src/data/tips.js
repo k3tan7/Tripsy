@@ -1,13 +1,17 @@
-// 30-40 travel tips for tip corner
-export const tips = [
-  "Pack a universal power adapter before your trip",
-  "Keep important documents in a separate bag",
-  "Roll clothes instead of folding to save space",
-  "Take photos of your passport and important info",
-  "Bring a reusable water bottle to save money",
-  "Pack medications in original containers",
-  "Keep a copy of your itinerary with someone at home",
-  "Use packing cubes to organize items by category",
-  "Download offline maps before traveling",
-  "Keep emergency contacts on your phone and paper"
+export const TIPS = [
+  "Roll clothes instead of folding — saves 30% more bag space",
+  "Always carry a small first aid kit",
+  "Wear your heaviest shoes on the flight, not in the bag",
+  "Pack a reusable bag for laundry or shopping",
+  "Screenshot your tickets and hotel — works offline",
+  "Carry a rubber band to seal shampoo caps",
+  "Noise-cancelling earphones make long journeys far better",
+  "Keep one change of clothes in carry-on for emergencies",
+  "A portable charger is never optional",
+  "Label your luggage with a bright ribbon so it's easy to spot",
+  "Cash in local currency on day one saves a lot of stress",
+  "A physical copy of your hotel address helps with local autos",
+  "Compression bags double your wardrobe space",
+  "Carry a pen — you always need one for immigration forms",
+  "Drink water before boarding — flights dehydrate you fast"
 ];
