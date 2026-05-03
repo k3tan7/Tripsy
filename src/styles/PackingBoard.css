@@ -1,0 +1,36 @@
+/* Packing Board page styles */
+.packing-board-page {
+  padding: 1rem;
+}
+
+.packing-board-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.board-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #eee;
+}
+
+.tab {
+  padding: 1rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #999;
+  transition: var(--transition);
+  border-bottom: 3px solid transparent;
+}
+
+.tab.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.tab:hover:not(.active) {
+  color: #666;
+}

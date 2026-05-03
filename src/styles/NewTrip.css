@@ -1,0 +1,50 @@
+/* New Trip page styles */
+.newtrip-page {
+  padding: 1rem;
+}
+
+.newtrip-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.step-basics,
+.step-context,
+.step-review {
+  margin-bottom: 2rem;
+}
+
+.step-basics input,
+.step-context input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+}
+
+.chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 0.5rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  background: white;
+  transition: var(--transition);
+}
+
+.chip:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.chip.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}

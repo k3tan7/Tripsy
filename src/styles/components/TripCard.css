@@ -1,0 +1,59 @@
+/* Trip Card styles with ambient animation */
+.trip-card {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.trip-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.trip-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.trip-card:hover::before {
+  left: 100%;
+}
+
+.trip-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.trip-card p {
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.trip-dates {
+  font-size: 0.875rem;
+  color: #999;
+}
+
+@keyframes ambient {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}

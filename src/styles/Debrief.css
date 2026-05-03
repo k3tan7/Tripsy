@@ -1,0 +1,56 @@
+/* Debrief page styles */
+.debrief-page {
+  padding: 1rem;
+}
+
+.debrief-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.forgot-selector {
+  margin-bottom: 2rem;
+}
+
+.selector-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.selector-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.selector-item input {
+  cursor: pointer;
+}
+
+.custom-forgot-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.custom-forgot-input input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+}
+
+.custom-forgot-input button {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.custom-forgot-input button:hover {
+  background: #45a049;
+}

@@ -1,0 +1,73 @@
+/* Category Section styles */
+.category-section {
+  margin-bottom: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.category-title {
+  background: #f5f5f5;
+  padding: 1rem;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  user-select: none;
+  transition: var(--transition);
+}
+
+.category-title:hover {
+  background: #ebebeb;
+}
+
+.category-title::after {
+  content: '▼';
+  font-size: 0.75rem;
+  transition: var(--transition);
+}
+
+.category-section.collapsed .category-title::after {
+  transform: rotate(-90deg);
+}
+
+.category-items {
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.category-section.collapsed .category-items {
+  display: none;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+.category-item input[type='checkbox'] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.category-item label {
+  flex: 1;
+  cursor: pointer;
+  margin: 0;
+}
+
+.category-item input[type='checkbox']:checked + label {
+  text-decoration: line-through;
+  color: #999;
+}

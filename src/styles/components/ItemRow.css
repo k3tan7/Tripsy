@@ -1,0 +1,60 @@
+/* Item Row styles */
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+  transition: var(--transition);
+}
+
+.item-row:hover {
+  background: #fafafa;
+}
+
+.item-row input[type='checkbox'] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.item-name {
+  flex: 1;
+  color: #333;
+}
+
+.item-row input[type='checkbox']:checked + .item-name {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.forgot-badge {
+  background: #ff9800;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.remove-btn {
+  background: #f44336;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.item-row:hover .remove-btn {
+  opacity: 1;
+}
+
+.remove-btn:hover {
+  background: #da190b;
+}
