@@ -1,88 +1,106 @@
-# Tripsy ✈️
+# Tripsy
 
-> A smart packing list app that helps you prepare for every trip — no more forgotten essentials.
+**A smart packing list application for organized, stress-free travel.**
 
 ---
 
-## About
+## Overview
 
-Tripsy is a React app that helps travelers build and manage packing lists. You tell it where you're going, how long you'll be there, and what you're planning to do — and it gives you a categorized checklist to work through before you leave.
+Tripsy helps travelers build and manage packing lists with minimal effort. Provide your destination, trip duration, and planned activities — Tripsy generates a structured, categorized checklist so nothing gets left behind.
 
-Everything is saved in your browser, so your lists are there when you come back.
+All data is persisted locally in your browser, ensuring your lists are available whenever you return.
 
 ---
 
 ## Features
 
-### 🗂️ Smart Categories
-Items are grouped into categories like clothing, toiletries, electronics, and documents — so your list stays organized and easy to scan.
+### Smart Categories
+Items are automatically organized into logical categories — clothing, toiletries, electronics, documents, and more — keeping your checklist easy to scan and navigate.
 
-### 📁 Trip Templates
-Save packing setups as templates and reuse them for similar trips. Going on another beach holiday? Load the template and you're most of the way there.
+### Trip Templates
+Save any packing setup as a reusable template. Load it for future trips of the same type and make adjustments as needed, eliminating repetitive list-building from scratch.
 
-### ⚖️ Bag Weight Tracker
-Add estimated weights to your items and see your total bag weight update in real time — helpful for staying within airline limits before you get to the airport.
+### Bag Weight Tracker
+Assign estimated weights to individual items and monitor your total bag weight in real time — ideal for staying within airline baggage limits before you reach the airport.
 
-### ⚡ Last-Minute Mode
-A filtered view that shows only your unchecked essentials — useful when you're rushing out the door and just need to know what's left.
+### Last-Minute Mode
+A focused view that surfaces only your unchecked essential items. Designed for the final moments before departure when time is limited and clarity matters most.
 
-### 💾 Saves Automatically
-Your lists and templates are saved to localStorage, so nothing is lost when you close the tab.
+### Automatic Persistence
+All lists and templates are saved automatically via `localStorage`. Your data is retained between sessions without requiring an account or internet connection.
 
 ---
 
 ## Getting Started
 
+### Prerequisites
+- Node.js (v14 or later recommended)
+- npm
+
+### Installation
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/tripsy.git
 
-# Navigate into the project
+# Navigate into the project directory
 cd tripsy
 
 # Install dependencies
 npm install
 
-# Start the app
+# Start the development server
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Once running, open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
 ## Tech Stack
 
-- **React** — UI and component logic
-- **React Context / useState** — state management
-- **localStorage** — saving lists and templates between sessions
-- **CSS / Tailwind CSS** — styling
+| Layer | Technology |
+|---|---|
+| UI Framework | React |
+| State Management | React Context / `useState` |
+| Persistence | `localStorage` |
+| Styling | Tailwind CSS |
 
 ---
 
 ## Roadmap
 
+### Completed
 - [x] Categorized packing lists
 - [x] Trip templates
 - [x] Bag weight tracker
 - [x] Last-Minute Mode
-- [x] localStorage persistence
-- [ ] Activity-based list suggestions
-- [ ] Backend & user accounts
+- [x] Automatic `localStorage` persistence
+
+### Planned
+- [ ] Activity-based packing suggestions
+- [ ] User accounts and backend support
 - [ ] Cloud sync across devices
-- [ ] Collaborative packing with travel partners
+- [ ] Collaborative packing for group travel
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Open an issue first to discuss what you'd like to change, then submit a pull request.
+Contributions are welcome. To propose a change, please open an issue first to discuss your idea before submitting a pull request.
 
 ```bash
+# Create a feature branch
 git checkout -b feature/your-feature-name
-git commit -m "feat: add your feature"
+
+# Commit your changes
+git commit -m "feat: describe your change"
+
+# Push to your fork
 git push origin feature/your-feature-name
 ```
+
+Once pushed, open a pull request against the `main` branch with a clear description of what was changed and why.
 
 ---
 
