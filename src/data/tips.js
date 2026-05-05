@@ -8,7 +8,7 @@ export const TIPS = [
   "Noise-cancelling earphones make long journeys far better",
   "Keep one change of clothes in carry-on for emergencies",
   "A portable charger is never optional",
-  "Label your luggage with a bright ribbon so it's easy to spot",
+  "Label your luggage with a bright ribbon — easy to spot",
   "Cash in local currency on day one saves a lot of stress",
   "A physical copy of your hotel address helps with local autos",
   "Compression bags double your wardrobe space",
