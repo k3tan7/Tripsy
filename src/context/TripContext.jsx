@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import { createContext, useReducer, useContext } from 'react';
 
 export const TripContext = createContext();
 
@@ -135,10 +135,16 @@ export const TripProvider = ({ children }) => {
   const [state, dispatch] = useReducer(tripReducer, initialState);
 
   return (
-    <TripContext.Provider value={{ ...state, dispatch }}>
+    <TripContext.Provider value={{ state, dispatch }}>
       {children}
     </TripContext.Provider>
   );
 };
 
-export const useTripContext = () => useContext(TripContext);
+export const useTripContext = () => {
+  const context = useContext(TripContext);
+  if (!context) {
+    throw new Error('useTripContext must be used within a TripProvider');
+  }
+  return context;
+};

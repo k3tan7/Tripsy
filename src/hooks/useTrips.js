@@ -1,6 +1,6 @@
 import { useTripContext } from '../context/TripContext';
 
 export default function useTrips() {
-  const { trips, templates, dispatch } = useTripContext();
-  return { trips, templates, dispatch };
+  const { state, dispatch } = useTripContext();
+  return { trips: state.trips, templates: state.templates, dispatch };
 }
