@@ -32,6 +32,7 @@ export default function NewTrip({ onAddTrip }) {
     const newTrip = {
       ...form,
       id: Date.now().toString(),
+      items: [],
     };
     onAddTrip(newTrip);
     navigate(`/trip/${newTrip.id}`);

@@ -35,6 +35,30 @@
   color: var(--dark-purple);
 }
 
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.sort-select {
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--dark-purple);
+  font-weight: 600;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+}
+
 .home-empty {
   text-align: center;
   padding: 3rem 1rem;
@@ -65,15 +89,10 @@
   border: 2px solid var(--border);
   border-radius: var(--radius);
   padding: 1.25rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.2s ease;
   border-top: 6px solid var(--card-color, var(--accent-purple));
   display: flex;
   flex-direction: column;
-}
-
-.trip-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(80, 78, 118, 0.1);
 }
 
 .trip-card-dest {
@@ -96,6 +115,23 @@
   line-height: 1.4;
   margin-bottom: 1rem;
   flex-grow: 1;
+}
+
+.trip-card-stats {
+  margin-bottom: 1rem;
+}
+
+.packing-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--bg);
+  color: var(--dark-purple);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
 }
 
 .trip-card-footer {
