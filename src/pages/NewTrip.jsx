@@ -2,37 +2,41 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./NewTrip.css";
 
-// Colors from the palette provided
+// Colors from the user's palette
 const COLORS = [
-  "#C4C3E3", // Pastel purple
-  "#504E76", // Dark purple
-  "#A3B565", // Green
-  "#FCDD9D", // Yellow
-  "#F1642E", // Orange
+  "#C4C3E3", 
+  "#504E76", 
+  "#A3B565", 
+  "#FCDD9D", 
+  "#F1642E", 
 ];
 
-export default function NewTrip({ onAddTrip }) {
+export default function NewTripPage({ onAddTrip }) {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    name: "",
-    destination: "",
-    startDate: "",
-    endDate: "",
-    description: "",
-    coverColor: COLORS[0],
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
+  
+  // Use useState for each form field
+  const [name, setName] = useState("");
+  const [destination, setDestination] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [tripType, setTripType] = useState("City");
+  
+  // Maintained color tag state to connect with previous design
+  const [coverColor, setCoverColor] = useState(COLORS[0]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTrip = {
-      ...form,
       id: Date.now().toString(),
-      items: [],
+      name,
+      destination,
+      // Map to startDate/endDate so existing components render smoothly
+      startDate: departureDate, 
+      endDate: returnDate,
+      type: tripType,
+      description: `A ${tripType.toLowerCase()} trip to ${destination}.`, // Autofilled summary
+      coverColor,
+      items: [], // Ensures the Home component packing stats work
     };
     onAddTrip(newTrip);
     navigate(`/trip/${newTrip.id}`);
@@ -52,10 +56,9 @@ export default function NewTrip({ onAddTrip }) {
           <label htmlFor="name">Trip Name</label>
           <input
             id="name"
-            name="name"
             type="text"
-            value={form.name}
-            onChange={handleChange}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Summer in Kyoto"
             required
           />
@@ -65,10 +68,9 @@ export default function NewTrip({ onAddTrip }) {
           <label htmlFor="destination">Destination</label>
           <input
             id="destination"
-            name="destination"
             type="text"
-            value={form.destination}
-            onChange={handleChange}
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
             placeholder="e.g. Kyoto, Japan"
             required
           />
@@ -76,39 +78,40 @@ export default function NewTrip({ onAddTrip }) {
 
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="startDate">Start Date</label>
+            <label htmlFor="departureDate">Departure Date</label>
             <input
-              id="startDate"
-              name="startDate"
+              id="departureDate"
               type="date"
-              value={form.startDate}
-              onChange={handleChange}
+              value={departureDate}
+              onChange={(e) => setDepartureDate(e.target.value)}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="endDate">End Date</label>
+            <label htmlFor="returnDate">Return Date</label>
             <input
-              id="endDate"
-              name="endDate"
+              id="returnDate"
               type="date"
-              value={form.endDate}
-              onChange={handleChange}
+              value={returnDate}
+              onChange={(e) => setReturnDate(e.target.value)}
               required
             />
           </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="description">Packing Notes / Description</label>
-          <textarea
-            id="description"
-            name="description"
-            rows={3}
-            value={form.description}
-            onChange={handleChange}
-            placeholder="What kind of trip is this? Any special packing needs?"
-          />
+          <label htmlFor="tripType">Trip Type</label>
+          <select 
+            id="tripType"
+            value={tripType} 
+            onChange={(e) => setTripType(e.target.value)}
+          >
+            <option value="Beach">Beach</option>
+            <option value="Business">Business</option>
+            <option value="Camping">Camping</option>
+            <option value="City">City</option>
+            <option value="Winter">Winter</option>
+          </select>
         </div>
 
         <div className="form-group">
@@ -118,9 +121,9 @@ export default function NewTrip({ onAddTrip }) {
               <button
                 key={color}
                 type="button"
-                className={`color-swatch ${form.coverColor === color ? "selected" : ""}`}
+                className={`color-swatch ${coverColor === color ? "selected" : ""}`}
                 style={{ backgroundColor: color }}
-                onClick={() => setForm((prev) => ({ ...prev, coverColor: color }))}
+                onClick={() => setCoverColor(color)}
                 aria-label={`Select color ${color}`}
               />
             ))}
