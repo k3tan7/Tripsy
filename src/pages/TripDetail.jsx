@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { Search, MapPin, Package } from "lucide-react";
+import { Search, MapPin, Check, Plus } from "lucide-react";
 import "./TripDetail.css";
 
-export default function TripDetail({ trips }) {
+export default function TripDetail({ trips, onUpdateTrip }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const trip = trips.find((t) => t.id === id);
+
+  const [newItemName, setNewItemName] = useState("");
 
   if (!trip) {
     return (
@@ -18,12 +21,31 @@ export default function TripDetail({ trips }) {
     );
   }
 
+  const items = trip.items || [];
+  const packedCount = items.filter(i => i.packed).length;
+
+  const handleToggleItem = (itemId) => {
+    // Only works if onUpdateTrip is provided (safeguard)
+    if (!onUpdateTrip) return;
+    
+    const updatedItems = items.map(item => 
+      item.id === itemId ? { ...item, packed: !item.packed } : item
+    );
+    onUpdateTrip({ ...trip, items: updatedItems });
+  };
+
+  const handleAddItem = (e) => {
+    e.preventDefault();
+    if (!newItemName.trim() || !onUpdateTrip) return;
+    
+    const newItem = { id: `item_${Date.now()}`, name: newItemName, packed: false };
+    onUpdateTrip({ ...trip, items: [...items, newItem] });
+    setNewItemName("");
+  };
+
   const nights =
     trip.startDate && trip.endDate
-      ? Math.round(
-          (new Date(trip.endDate) - new Date(trip.startDate)) /
-            (1000 * 60 * 60 * 24)
-        )
+      ? Math.round((new Date(trip.endDate) - new Date(trip.startDate)) / (1000 * 60 * 60 * 24))
       : null;
 
   return (
@@ -79,9 +101,36 @@ export default function TripDetail({ trips }) {
         </div>
       </div>
 
-      <div className="trip-detail-placeholder">
-        <Package className="placeholder-icon" size={32} color="var(--text-secondary)" style={{margin: '0 auto 1rem'}} />
-        <p>Packing list feature coming soon.</p>
+      <div className="packing-list-section">
+        <div className="packing-list-header">
+          <h2>Packing List</h2>
+          <span className="packing-progress-text">{packedCount} of {items.length} packed</span>
+        </div>
+
+        <form className="add-item-form" onSubmit={handleAddItem}>
+          <input 
+            type="text" 
+            value={newItemName} 
+            onChange={(e) => setNewItemName(e.target.value)}
+            placeholder="Add a new item..."
+          />
+          <button type="submit" aria-label="Add item"><Plus size={18} strokeWidth={3} /></button>
+        </form>
+
+        {items.length === 0 ? (
+          <p className="empty-list-text">Your packing list is empty. Add items above!</p>
+        ) : (
+          <ul className="packing-items">
+            {items.map(item => (
+              <li key={item.id} className={`packing-item ${item.packed ? 'packed' : ''}`} onClick={() => handleToggleItem(item.id)}>
+                <button className="checkbox" tabIndex={-1}>
+                  {item.packed && <Check size={14} strokeWidth={4} />}
+                </button>
+                <span className="item-name">{item.name}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </main>
   );
