@@ -101,6 +101,7 @@ export default function NewTripPage({ onAddTrip }) {
               id="returnDate"
               type="date"
               value={returnDate}
+              min={departureDate}
               onChange={(e) => setReturnDate(e.target.value)}
               required
             />
