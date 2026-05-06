@@ -1,0 +1,105 @@
+.new-trip {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+}
+
+.new-trip-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--dark-purple);
+  margin-bottom: 0.5rem;
+}
+
+.new-trip-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.new-trip-form {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dark-purple);
+}
+
+.form-group input,
+.form-group textarea {
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--dark-purple);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent-orange);
+}
+
+.color-picker {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.color-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.color-swatch.selected {
+  border-color: var(--dark-purple);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  background: var(--accent-orange);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--dark-purple);
+  font-weight: 600;
+  border: 2px solid var(--border);
+  cursor: pointer;
+}
