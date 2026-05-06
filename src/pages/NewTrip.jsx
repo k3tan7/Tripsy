@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { TEMPLATES } from "../data/tripsData";
 import "./NewTrip.css";
 
 // Colors from the user's palette
@@ -26,6 +27,13 @@ export default function NewTripPage({ onAddTrip }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const templateItems = TEMPLATES[tripType] || [];
+    const initialItems = templateItems.map((itemName, index) => ({
+      id: `item_${Date.now()}_${index}`,
+      name: itemName,
+      packed: false,
+    }));
+
     const newTrip = {
       id: Date.now().toString(),
       name,
@@ -36,7 +44,7 @@ export default function NewTripPage({ onAddTrip }) {
       type: tripType,
       description: `A ${tripType.toLowerCase()} trip to ${destination}.`, // Autofilled summary
       coverColor,
-      items: [], // Ensures the Home component packing stats work
+      items: initialItems, // Ensures the Home component packing stats work and list is pre-populated
     };
     onAddTrip(newTrip);
     navigate(`/trip/${newTrip.id}`);
