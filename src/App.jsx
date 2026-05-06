@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import NewTrip from "./pages/NewTrip";
-import TripDetail from "./pages/TripDetail";
+import NewTripPage from "./pages/NewTrip";
+import TripDetailPage from "./pages/TripDetailPage";
 import sampleTrips from "./data/sampleTrips";
 import "./index.css";
 
@@ -57,8 +57,8 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home trips={trips} />} />
-        <Route path="/new" element={<NewTrip onAddTrip={handleAddTrip} />} />
-        <Route path="/trip/:id" element={<TripDetail trips={trips} onUpdateTrip={handleUpdateTrip} />} />
+        <Route path="/new" element={<NewTripPage onAddTrip={handleAddTrip} />} />
+        <Route path="/trip/:id" element={<TripDetailPage trips={trips} updateTrip={handleUpdateTrip} />} />
       </Routes>
     </BrowserRouter>
   );
