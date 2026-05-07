@@ -83,6 +83,14 @@ export default function Home({ trips }) {
                       <Briefcase size={14} />
                       <span>{packedItems} / {totalItems} Packed</span>
                     </div>
+                    {totalItems > 0 && (
+                      <div className="progress-bar-container">
+                        <div 
+                          className="progress-bar-fill" 
+                          style={{ width: `${(packedItems / totalItems) * 100}%`, backgroundColor: 'var(--accent-green)' }}
+                        />
+                      </div>
+                    )}
                   </div>
 
                   <div className="trip-card-footer">

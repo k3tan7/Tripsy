@@ -34,7 +34,7 @@ export default function NewTripPage({ onAddTrip }) {
         id: `item_${Date.now()}_${index}`,
         name: itemName,
         packed: false,
-        weight: 0,
+        quantity: 1,
         categoryId: foundCategory ? foundCategory.id : "cat_misc"
       };
     });
