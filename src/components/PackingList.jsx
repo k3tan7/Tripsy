@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Plus, ChevronDown, ChevronUp } from "lucide-react";
+import { Check, Plus, ChevronDown, ChevronUp, Trash2, X } from "lucide-react";
 import { CATEGORIES } from "../data/tripsData";
 import "./PackingList.css";
 
@@ -8,7 +8,9 @@ export default function PackingList({ trip, updateTrip }) {
   const [newItems, setNewItems] = useState({}); // Manage input value per category
 
   const items = trip.items || [];
+  const totalItems = items.length;
   const totalPackedCount = items.filter(i => i.packed).length;
+  const remainingItems = totalItems - totalPackedCount;
 
   const handleToggleItem = (itemId) => {
     if (!updateTrip) return;
@@ -24,6 +26,12 @@ export default function PackingList({ trip, updateTrip }) {
     const updatedItems = items.map(item => 
       item.id === itemId ? { ...item, quantity } : item
     );
+    updateTrip({ ...trip, items: updatedItems });
+  };
+
+  const handleDeleteItem = (itemId) => {
+    if (!updateTrip) return;
+    const updatedItems = items.filter(item => item.id !== itemId);
     updateTrip({ ...trip, items: updatedItems });
   };
 
@@ -85,6 +93,21 @@ export default function PackingList({ trip, updateTrip }) {
         </div>
       </div>
 
+      <div className="packing-list-summary">
+        <div className="summary-stat">
+          <span className="summary-label">Total</span>
+          <strong className="summary-value">{totalItems}</strong>
+        </div>
+        <div className="summary-stat">
+          <span className="summary-label">Packed</span>
+          <strong className="summary-value">{totalPackedCount}</strong>
+        </div>
+        <div className="summary-stat">
+          <span className="summary-label">Remaining</span>
+          <strong className="summary-value">{remainingItems}</strong>
+        </div>
+      </div>
+
       <div className="categories-container">
         {groupedCategories.map(category => {
           const isExpanded = expandedCategory === category.id;
@@ -118,15 +141,20 @@ export default function PackingList({ trip, updateTrip }) {
                             </button>
                             <span className="item-name">{item.name}</span>
                           </div>
-                          <div className="packing-item-quantity">
-                            <span className="qty-label">Qty</span>
-                            <input 
-                              type="number" 
-                              min="1"
-                              value={item.quantity || 1}
-                              onChange={(e) => handleQuantityChange(item.id, e.target.value)}
-                              placeholder="1"
-                            />
+                          <div className="packing-item-actions">
+                            <div className="packing-item-quantity">
+                              <span className="qty-label">Qty</span>
+                              <input 
+                                type="number" 
+                                min="1"
+                                value={item.quantity || 1}
+                                onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                                placeholder="1"
+                              />
+                            </div>
+                            <button className="btn-delete-item" onClick={(e) => { e.stopPropagation(); handleDeleteItem(item.id); }} aria-label="Delete item">
+                              <X size={16} strokeWidth={3} />
+                            </button>
                           </div>
                         </li>
                       ))}
