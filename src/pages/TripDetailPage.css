@@ -96,6 +96,103 @@
   color: #fff;
 }
 
+.trip-card-manage {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--border);
+}
+
+.btn-edit-trip {
+  padding: 0.5rem 1rem;
+  background: var(--dark-purple);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-edit-trip:hover {
+  opacity: 0.9;
+}
+
+.btn-delete-trip {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--accent-orange);
+  border: 2px solid var(--accent-orange);
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-delete-trip:hover {
+  background: rgba(241, 100, 46, 0.1);
+}
+
+.delete-confirm {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.btn-confirm-yes {
+  padding: 0.4rem 0.8rem;
+  background: var(--accent-orange);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.edit-trip-form {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.edit-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.edit-field input {
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem;
+  font-size: 1rem;
+  color: var(--dark-purple);
+  outline: none;
+}
+
+.edit-field input:focus {
+  border-color: var(--accent-orange);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
 .trip-detail-notfound {
   text-align: center;
   padding: 4rem 1rem;

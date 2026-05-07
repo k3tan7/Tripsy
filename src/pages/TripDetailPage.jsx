@@ -6,13 +6,17 @@ import WeightTracker from "../components/WeightTracker";
 import LastMinuteMode from "../components/LastMinuteMode";
 import "./TripDetailPage.css";
 
-export default function TripDetailPage({ trips, updateTrip }) {
+export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLastMinuteMode, setIsLastMinuteMode] = useState(false);
   const [showSaveTemplate, setShowSaveTemplate] = useState(false);
   const [templateName, setTemplateName] = useState("");
   const [templateSaved, setTemplateSaved] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editName, setEditName] = useState("");
+  const [editDestination, setEditDestination] = useState("");
   const trip = trips.find((t) => t.id === id);
 
   if (!trip) {
@@ -53,6 +57,23 @@ export default function TripDetailPage({ trips, updateTrip }) {
     }
   };
 
+  const handleDeleteTrip = () => {
+    deleteTrip(trip.id);
+    navigate("/");
+  };
+
+  const handleStartEdit = () => {
+    setEditName(trip.name);
+    setEditDestination(trip.destination);
+    setIsEditing(true);
+  };
+
+  const handleSaveEdit = () => {
+    if (!editName.trim() || !editDestination.trim()) return;
+    updateTrip({ ...trip, name: editName.trim(), destination: editDestination.trim() });
+    setIsEditing(false);
+  };
+
   return (
     <main className="trip-detail">
       <button className="btn-back-nav" onClick={() => navigate(-1)}>
@@ -71,10 +92,29 @@ export default function TripDetailPage({ trips, updateTrip }) {
             </span>
           )}
         </div>
-        <h1 className="trip-detail-name">{trip.name}</h1>
 
-        {trip.description && (
-          <p className="trip-detail-desc">{trip.description}</p>
+        {isEditing ? (
+          <div className="edit-trip-form">
+            <div className="edit-field">
+              <label>Trip Name</label>
+              <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)} />
+            </div>
+            <div className="edit-field">
+              <label>Destination</label>
+              <input type="text" value={editDestination} onChange={(e) => setEditDestination(e.target.value)} />
+            </div>
+            <div className="edit-actions">
+              <button className="btn-primary" onClick={handleSaveEdit}>Save Changes</button>
+              <button className="btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <h1 className="trip-detail-name">{trip.name}</h1>
+            {trip.description && (
+              <p className="trip-detail-desc">{trip.description}</p>
+            )}
+          </>
         )}
 
         <div className="trip-detail-stats">
@@ -111,6 +151,21 @@ export default function TripDetailPage({ trips, updateTrip }) {
             </div>
           )}
         </div>
+
+        {!isEditing && (
+          <div className="trip-card-manage">
+            <button className="btn-edit-trip" onClick={handleStartEdit}>Edit Trip</button>
+            {!showDeleteConfirm ? (
+              <button className="btn-delete-trip" onClick={() => setShowDeleteConfirm(true)}>Delete Trip</button>
+            ) : (
+              <div className="delete-confirm">
+                <span>Are you sure?</span>
+                <button className="btn-confirm-yes" onClick={handleDeleteTrip}>Yes, Delete</button>
+                <button className="btn-secondary" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <WeightTracker items={trip.items} />
