@@ -116,6 +116,22 @@
   margin: 0;
 }
 
+.saved-template-dropdown {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--dark-purple);
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+}
+
+.saved-template-dropdown:focus {
+  border-color: var(--accent-orange);
+}
+
 .form-actions {
   display: flex;
   justify-content: flex-end;

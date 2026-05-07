@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TEMPLATES, CATEGORIES } from "../data/tripsData";
 import "./NewTrip.css";
@@ -26,11 +26,36 @@ export default function NewTripPage({ onAddTrip }) {
   // Maintained color tag state to connect with previous design
   const [coverColor, setCoverColor] = useState(COLORS[0]);
 
+  // Saved user templates from localStorage
+  const [savedTemplates, setSavedTemplates] = useState({});
+  const [selectedSavedTemplate, setSelectedSavedTemplate] = useState("");
+
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("tripsy-templates") || "{}");
+      setSavedTemplates(stored);
+    } catch (err) {
+      console.error("Failed to load saved templates", err);
+    }
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let initialItems = [];
     
-    if (loadTemplate) {
+    if (selectedSavedTemplate && savedTemplates[selectedSavedTemplate]) {
+      // Use saved custom template
+      const savedItems = savedTemplates[selectedSavedTemplate];
+      initialItems = savedItems.map((item, index) => ({
+        id: `item_${Date.now()}_${index}`,
+        name: item.name,
+        packed: false,
+        quantity: item.quantity || 1,
+        weight: item.weight || 0,
+        categoryId: item.categoryId || "cat_misc"
+      }));
+    } else if (loadTemplate) {
+      // Use built-in trip type template
       const templateItems = TEMPLATES[tripType] || [];
       initialItems = templateItems.map((itemName, index) => {
         const foundCategory = CATEGORIES.find(c => c.defaultItems.includes(itemName));
@@ -139,11 +164,27 @@ export default function NewTripPage({ onAddTrip }) {
               <input 
                 type="checkbox" 
                 checked={loadTemplate} 
-                onChange={(e) => setLoadTemplate(e.target.checked)} 
+                onChange={(e) => { setLoadTemplate(e.target.checked); if (e.target.checked) setSelectedSavedTemplate(""); }} 
               />
               Load suggested items
             </label>
           </div>
+
+          {Object.keys(savedTemplates).length > 0 && (
+            <div className="template-checkbox-wrapper" style={{ marginTop: '0.5rem' }}>
+              <span className="template-msg">Or apply a previously saved template.</span>
+              <select
+                className="saved-template-dropdown"
+                value={selectedSavedTemplate}
+                onChange={(e) => { setSelectedSavedTemplate(e.target.value); if (e.target.value) setLoadTemplate(false); }}
+              >
+                <option value="">-- No saved template --</option>
+                {Object.keys(savedTemplates).map(name => (
+                  <option key={name} value={name}>{name}</option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
 
         <div className="form-group">
