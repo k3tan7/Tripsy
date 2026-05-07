@@ -1,11 +1,18 @@
+import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Search, MapPin } from "lucide-react";
 import PackingList from "../components/PackingList";
+import WeightTracker from "../components/WeightTracker";
+import LastMinuteMode from "../components/LastMinuteMode";
 import "./TripDetailPage.css";
 
 export default function TripDetailPage({ trips, updateTrip }) {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isLastMinuteMode, setIsLastMinuteMode] = useState(false);
+  const [showSaveTemplate, setShowSaveTemplate] = useState(false);
+  const [templateName, setTemplateName] = useState("");
+  const [templateSaved, setTemplateSaved] = useState(false);
   const trip = trips.find((t) => t.id === id);
 
   if (!trip) {
@@ -23,6 +30,28 @@ export default function TripDetailPage({ trips, updateTrip }) {
     trip.startDate && trip.endDate
       ? Math.round((new Date(trip.endDate) - new Date(trip.startDate)) / (1000 * 60 * 60 * 24))
       : null;
+
+  const handleSaveTemplate = () => {
+    if (!templateName.trim()) return;
+    try {
+      const existing = JSON.parse(localStorage.getItem("tripsy-templates") || "{}");
+      existing[templateName.trim()] = (trip.items || []).map(item => ({
+        name: item.name,
+        categoryId: item.categoryId || "cat_misc",
+        weight: item.weight || 0,
+        quantity: item.quantity || 1
+      }));
+      localStorage.setItem("tripsy-templates", JSON.stringify(existing));
+      setTemplateSaved(true);
+      setTemplateName("");
+      setTimeout(() => {
+        setTemplateSaved(false);
+        setShowSaveTemplate(false);
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to save template", err);
+    }
+  };
 
   return (
     <main className="trip-detail">
@@ -84,7 +113,47 @@ export default function TripDetailPage({ trips, updateTrip }) {
         </div>
       </div>
 
-      <PackingList trip={trip} updateTrip={updateTrip} />
+      <WeightTracker items={trip.items} />
+
+      <div className="trip-detail-actions">
+        <button 
+          className={`btn-toggle-lmm ${isLastMinuteMode ? 'active' : ''}`}
+          onClick={() => setIsLastMinuteMode(!isLastMinuteMode)}
+        >
+          {isLastMinuteMode ? "Exit Last-Minute Mode" : "Activate Last-Minute Mode"}
+        </button>
+      </div>
+
+      {isLastMinuteMode ? (
+        <LastMinuteMode trip={trip} updateTrip={updateTrip} />
+      ) : (
+        <PackingList trip={trip} updateTrip={updateTrip} />
+      )}
+
+      <div className="save-template-section">
+        {!showSaveTemplate ? (
+          <button className="btn-save-template" onClick={() => setShowSaveTemplate(true)}>
+            Save as Template
+          </button>
+        ) : (
+          <div className="save-template-form">
+            {templateSaved ? (
+              <p className="template-saved-msg">Template saved successfully.</p>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  value={templateName}
+                  onChange={(e) => setTemplateName(e.target.value)}
+                  placeholder="Enter template name"
+                />
+                <button className="btn-primary" onClick={handleSaveTemplate}>Save</button>
+                <button className="btn-secondary" onClick={() => { setShowSaveTemplate(false); setTemplateName(""); }}>Cancel</button>
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </main>
   );
 }

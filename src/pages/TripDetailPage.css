@@ -70,6 +70,32 @@
   color: var(--dark-purple);
 }
 
+.trip-detail-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.btn-toggle-lmm {
+  background: transparent;
+  color: var(--accent-orange);
+  border: 2px solid var(--accent-orange);
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-toggle-lmm:hover {
+  background: rgba(241, 100, 46, 0.1);
+}
+
+.btn-toggle-lmm.active {
+  background: var(--accent-orange);
+  color: #fff;
+}
+
 .trip-detail-notfound {
   text-align: center;
   padding: 4rem 1rem;
@@ -87,4 +113,55 @@
   background: var(--dark-purple);
   color: #fff;
   border-radius: var(--radius);
+}
+
+.save-template-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border);
+}
+
+.btn-save-template {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--dark-purple);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-save-template:hover {
+  opacity: 0.9;
+}
+
+.save-template-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.save-template-form input {
+  flex-grow: 1;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--dark-purple);
+  outline: none;
+}
+
+.save-template-form input:focus {
+  border-color: var(--accent-orange);
+}
+
+.template-saved-msg {
+  color: var(--accent-green);
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  padding: 0.75rem;
 }

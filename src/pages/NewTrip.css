@@ -84,6 +84,54 @@
   border-color: var(--dark-purple);
 }
 
+.template-checkbox-wrapper {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.template-msg {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.template-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--dark-purple);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.template-label input {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.saved-template-dropdown {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--dark-purple);
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+}
+
+.saved-template-dropdown:focus {
+  border-color: var(--accent-orange);
+}
+
 .form-actions {
   display: flex;
   justify-content: flex-end;
