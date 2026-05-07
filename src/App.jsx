@@ -52,13 +52,17 @@ export default function App() {
     setTrips((prev) => prev.map(t => t.id === updatedTrip.id ? updatedTrip : t));
   };
 
+  const handleDeleteTrip = (tripId) => {
+    setTrips((prev) => prev.filter(t => t.id !== tripId));
+  };
+
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home trips={trips} />} />
         <Route path="/new" element={<NewTripPage onAddTrip={handleAddTrip} />} />
-        <Route path="/trip/:id" element={<TripDetailPage trips={trips} updateTrip={handleUpdateTrip} />} />
+        <Route path="/trip/:id" element={<TripDetailPage trips={trips} updateTrip={handleUpdateTrip} deleteTrip={handleDeleteTrip} />} />
       </Routes>
     </BrowserRouter>
   );
