@@ -1,23 +1,21 @@
-/* packing list styling */
 .packing-list-section {
   background: var(--surface);
   border: 2px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.5rem;
+  padding: 1.25rem;
 }
 
 .packing-list-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 1.25rem;
-  border-bottom: 2px solid var(--border);
-  padding-bottom: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
 .packing-list-header h2 {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: var(--dark-purple);
+  margin: 0;
 }
 
 .packing-progress-text {
@@ -26,20 +24,13 @@
   color: var(--text-secondary);
 }
 
-.packing-progress-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.4rem;
-}
-
 .progress-bar-container-main {
-  width: 120px;
-  height: 8px;
+  height: 6px;
   background: var(--bg);
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
   border: 1px solid var(--border);
+  margin-bottom: 1rem;
 }
 
 .progress-bar-fill-main {
@@ -48,243 +39,88 @@
   transition: width 0.3s ease;
 }
 
-.packing-list-summary {
-  display: flex;
-  justify-content: space-around;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-
-.summary-stat {
+/* Fixed-height scrollable container for all categories */
+.categories-scroll {
+  height: 480px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.summary-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
-.summary-value {
-  font-size: 1.25rem;
-  color: var(--dark-purple);
-  font-weight: 800;
-}
-
-.categories-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .category-section {
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
   background: #fff;
+  flex-shrink: 0;
 }
 
 .category-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 0.65rem 0.75rem;
   background: var(--bg);
   cursor: pointer;
   user-select: none;
-  transition: background 0.15s ease;
 }
 
 .category-header:hover {
-  background: #f7edcc; /* slight highlight on hover */
+  background: #f0e9c8;
 }
 
 .category-header-title {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   color: var(--dark-purple);
 }
 
 .category-header-title h3 {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 700;
   margin: 0;
 }
 
 .category-count {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-secondary);
   background: #fff;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
   border: 1px solid var(--border);
 }
 
 .category-content {
-  padding: 1rem;
-  border-top: 2px solid var(--border);
-}
-
-.add-item-form {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.add-item-form input {
-  flex-grow: 1;
-  border: 2px solid var(--border);
-  border-radius: 6px;
   padding: 0.6rem;
-  font-size: 0.95rem;
-  color: var(--dark-purple);
-  outline: none;
-}
-
-.add-item-form input:focus {
-  border-color: var(--accent-orange);
-}
-
-.add-item-form button {
-  background: var(--dark-purple);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.1s;
-}
-
-.add-item-form button:active {
-  transform: scale(0.95);
+  border-top: 1px solid var(--border);
 }
 
 .empty-list-text {
   text-align: center;
   color: var(--text-secondary);
   padding: 1rem 0;
-  border: 2px dashed var(--border);
-  border-radius: 6px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .packing-items {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.3rem;
 }
 
 .packing-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6rem 0.75rem;
-  background: #fff;
-  border: 2px solid var(--border);
-  border-radius: 6px;
-  transition: all 0.1s ease;
+  padding: 0.4rem 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
   user-select: none;
-}
-
-.packing-item-left {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  cursor: pointer;
-  flex-grow: 1;
-}
-
-.packing-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.packing-item-quantity {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.packing-item-quantity input {
-  width: 45px;
-  text-align: center;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.2rem 0.4rem;
-  font-size: 0.85rem;
-  color: var(--dark-purple);
-  outline: none;
-  background: var(--bg);
-}
-
-.packing-item-quantity input:focus {
-  border-color: var(--accent-orange);
-}
-
-.qty-label {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.packing-item-weight {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.packing-item-weight input {
-  width: 55px;
-  text-align: right;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.2rem 0.4rem;
-  font-size: 0.85rem;
-  color: var(--dark-purple);
-  outline: none;
-  background: var(--bg);
-}
-
-.packing-item-weight input:focus {
-  border-color: var(--accent-orange);
-}
-
-.weight-unit {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
-.btn-delete-item {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  padding: 0.2rem;
-  border-radius: 4px;
-  transition: all 0.1s ease;
-}
-
-.btn-delete-item:hover {
-  color: var(--accent-orange);
-  background: var(--bg);
 }
 
 .packing-item:hover {
@@ -292,8 +128,7 @@
 }
 
 .packing-item.packed {
-  opacity: 0.6;
-  background: var(--bg);
+  opacity: 0.5;
 }
 
 .packing-item.packed .item-name {
@@ -301,10 +136,70 @@
   color: var(--text-secondary);
 }
 
+.packing-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.packing-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.packing-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.packing-item-quantity input {
+  width: 36px;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.1rem;
+  font-size: 0.8rem;
+  color: var(--dark-purple);
+  outline: none;
+  background: #fff;
+}
+
+.packing-item-quantity input:focus {
+  border-color: var(--accent-orange);
+}
+
+.qty-label {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.item-weight-display {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 45px;
+  text-align: right;
+}
+
 .checkbox {
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
   border: 2px solid var(--dark-purple);
   background: transparent;
   display: flex;
@@ -318,4 +213,54 @@
 .packing-item.packed .checkbox {
   background: var(--dark-purple);
   border-color: var(--dark-purple);
+}
+
+.btn-delete-item {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.1rem;
+  border-radius: 3px;
+}
+
+.btn-delete-item:hover {
+  color: var(--accent-orange);
+}
+
+.add-item-form {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.add-item-form input {
+  flex-grow: 1;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8rem;
+  color: var(--dark-purple);
+  outline: none;
+}
+
+.add-item-form input:focus {
+  border-color: var(--accent-orange);
+}
+
+.add-item-form button {
+  background: var(--dark-purple);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0 0.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.add-item-form button:active {
+  transform: scale(0.95);
 }

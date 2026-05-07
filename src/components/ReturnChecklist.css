@@ -1,0 +1,135 @@
+.return-checklist {
+  background: var(--surface);
+  border: 2px solid var(--accent-green);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.return-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.return-header h2 {
+  font-size: 1.25rem;
+  color: var(--dark-purple);
+  margin-bottom: 0.15rem;
+}
+
+.return-header p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.return-counter {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  white-space: nowrap;
+}
+
+.return-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  border: 2px dashed var(--border);
+  border-radius: 6px;
+}
+
+.btn-mark-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--accent-green);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+  transition: opacity 0.2s;
+}
+
+.btn-mark-all:hover {
+  opacity: 0.9;
+}
+
+.return-category {
+  margin-bottom: 1rem;
+}
+
+.return-cat-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+}
+
+.return-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.return-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.1s ease;
+  font-size: 0.95rem;
+  color: var(--dark-purple);
+}
+
+.return-item:hover {
+  border-color: var(--accent-green);
+}
+
+.return-item.collected {
+  opacity: 0.5;
+  background: var(--bg);
+}
+
+.return-item.collected span {
+  text-decoration: line-through;
+}
+
+.return-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--accent-green);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.return-item.collected .return-checkbox {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+}
+
+.return-qty {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-left: auto;
+}

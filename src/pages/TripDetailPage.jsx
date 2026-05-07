@@ -4,12 +4,13 @@ import { Search, MapPin } from "lucide-react";
 import PackingList from "../components/PackingList";
 import WeightTracker from "../components/WeightTracker";
 import LastMinuteMode from "../components/LastMinuteMode";
+import ReturnChecklist from "../components/ReturnChecklist";
 import "./TripDetailPage.css";
 
 export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [isLastMinuteMode, setIsLastMinuteMode] = useState(false);
+  const [viewMode, setViewMode] = useState("packing");
   const [showSaveTemplate, setShowSaveTemplate] = useState(false);
   const [templateName, setTemplateName] = useState("");
   const [templateSaved, setTemplateSaved] = useState(false);
@@ -17,6 +18,7 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState("");
   const [editDestination, setEditDestination] = useState("");
+  const [exportMsg, setExportMsg] = useState("");
   const trip = trips.find((t) => t.id === id);
 
   if (!trip) {
@@ -72,6 +74,17 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
     if (!editName.trim() || !editDestination.trim()) return;
     updateTrip({ ...trip, name: editName.trim(), destination: editDestination.trim() });
     setIsEditing(false);
+  };
+
+  const handleExport = () => {
+    const items = trip.items || [];
+    const packed = items.filter(i => i.packed).map(i => `[x] ${i.name}`).join("\n");
+    const unpacked = items.filter(i => !i.packed).map(i => `[ ] ${i.name}`).join("\n");
+    const text = `${trip.name} - Packing List\n${trip.destination}\n\nPacked:\n${packed || "(none)"}\n\nStill to pack:\n${unpacked || "(none)"}`;
+    navigator.clipboard.writeText(text).then(() => {
+      setExportMsg("Copied to clipboard");
+      setTimeout(() => setExportMsg(""), 2000);
+    });
   };
 
   return (
@@ -171,21 +184,37 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
       <WeightTracker items={trip.items} />
 
       <div className="trip-detail-actions">
-        <button 
-          className={`btn-toggle-lmm ${isLastMinuteMode ? 'active' : ''}`}
-          onClick={() => setIsLastMinuteMode(!isLastMinuteMode)}
-        >
-          {isLastMinuteMode ? "Exit Last-Minute Mode" : "Activate Last-Minute Mode"}
-        </button>
+        <div className="view-mode-tabs">
+          <button 
+            className={`view-mode-tab ${viewMode === 'packing' ? 'active' : ''}`}
+            onClick={() => setViewMode('packing')}
+          >
+            Packing List
+          </button>
+          <button 
+            className={`view-mode-tab ${viewMode === 'lastminute' ? 'active' : ''}`}
+            onClick={() => setViewMode('lastminute')}
+          >
+            Last-Minute
+          </button>
+          <button 
+            className={`view-mode-tab ${viewMode === 'return' ? 'active' : ''}`}
+            onClick={() => setViewMode('return')}
+          >
+            Return Trip
+          </button>
+        </div>
       </div>
 
-      {isLastMinuteMode ? (
-        <LastMinuteMode trip={trip} updateTrip={updateTrip} />
-      ) : (
-        <PackingList trip={trip} updateTrip={updateTrip} />
-      )}
+      {viewMode === 'packing' && <PackingList trip={trip} updateTrip={updateTrip} />}
+      {viewMode === 'lastminute' && <LastMinuteMode trip={trip} updateTrip={updateTrip} />}
+      {viewMode === 'return' && <ReturnChecklist trip={trip} updateTrip={updateTrip} />}
 
-      <div className="save-template-section">
+      <div className="trip-bottom-actions">
+        <button className="btn-export" onClick={handleExport}>
+          {exportMsg || "Export Packing List"}
+        </button>
+
         {!showSaveTemplate ? (
           <button className="btn-save-template" onClick={() => setShowSaveTemplate(true)}>
             Save as Template
