@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { TEMPLATES, CATEGORIES } from "../data/tripsData";
+import { TEMPLATES, CATEGORIES, ITEM_WEIGHTS } from "../data/tripsData";
 import "./NewTrip.css";
 
 // Colors from the user's palette
@@ -64,7 +64,7 @@ export default function NewTripPage({ onAddTrip }) {
           name: itemName,
           packed: false,
           quantity: 1,
-          weight: 0,
+          weight: ITEM_WEIGHTS[itemName] || 0,
           categoryId: foundCategory ? foundCategory.id : "cat_misc"
         };
       });

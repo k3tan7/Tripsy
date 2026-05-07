@@ -27,6 +27,13 @@
   transition: background-color 0.3s ease;
 }
 
+.weight-total-hint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  text-align: right;
+}
+
 .weight-breakdown {
   margin-top: 1.25rem;
   padding-top: 1.25rem;

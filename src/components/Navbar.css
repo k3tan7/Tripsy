@@ -1,11 +1,16 @@
 .navbar {
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+}
+
+.navbar-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
-  height: 64px;
-  background: var(--bg);
-  border-bottom: 2px solid var(--border);
+  height: 60px;
 }
 
 .navbar-brand {
@@ -24,11 +29,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.5rem 1rem;
+  padding: 0.45rem 0.9rem;
   border-radius: var(--radius);
   background: var(--accent-orange);
   color: #fff;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
   transition: opacity 0.2s;
 }

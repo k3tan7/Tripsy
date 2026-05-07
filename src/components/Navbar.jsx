@@ -7,18 +7,20 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">
-        <Plane className="navbar-logo" size={24} color="var(--dark-purple)" />
-        <span className="navbar-name">Tripsy</span>
-      </Link>
+      <div className="navbar-inner">
+        <Link to="/" className="navbar-brand">
+          <Plane className="navbar-logo" size={22} color="var(--dark-purple)" />
+          <span className="navbar-name">Tripsy</span>
+        </Link>
 
-      <Link
-        to="/new"
-        className={`navbar-cta ${location.pathname === "/new" ? "active" : ""}`}
-      >
-        <Plus className="navbar-cta-icon" size={18} />
-        New Trip
-      </Link>
+        <Link
+          to="/new"
+          className={`navbar-cta ${location.pathname === "/new" ? "active" : ""}`}
+        >
+          <Plus className="navbar-cta-icon" size={16} />
+          New Trip
+        </Link>
+      </div>
     </nav>
   );
 }
