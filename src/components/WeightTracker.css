@@ -1,0 +1,65 @@
+.weight-tracker {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.weight-tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weight-tracker-header h3 {
+  font-size: 1.25rem;
+  color: var(--dark-purple);
+  margin: 0;
+}
+
+.weight-indicator {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 800;
+  color: var(--dark-purple);
+  border: 2px solid rgba(80, 78, 118, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.weight-breakdown {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--border);
+}
+
+.weight-breakdown h4 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.weight-breakdown ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.weight-breakdown li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.cat-name {
+  color: var(--dark-purple);
+  font-weight: 600;
+}
+
+.cat-weight {
+  color: var(--text-secondary);
+  font-weight: 600;
+}

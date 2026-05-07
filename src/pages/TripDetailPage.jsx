@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Search, MapPin } from "lucide-react";
 import PackingList from "../components/PackingList";
+import WeightTracker from "../components/WeightTracker";
 import "./TripDetailPage.css";
 
 export default function TripDetailPage({ trips, updateTrip }) {
@@ -84,6 +85,7 @@ export default function TripDetailPage({ trips, updateTrip }) {
         </div>
       </div>
 
+      <WeightTracker items={trip.items} />
       <PackingList trip={trip} updateTrip={updateTrip} />
     </main>
   );

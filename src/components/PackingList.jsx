@@ -29,6 +29,15 @@ export default function PackingList({ trip, updateTrip }) {
     updateTrip({ ...trip, items: updatedItems });
   };
 
+  const handleWeightChange = (itemId, weightStr) => {
+    if (!updateTrip) return;
+    const weight = parseInt(weightStr, 10) || 0;
+    const updatedItems = items.map(item => 
+      item.id === itemId ? { ...item, weight } : item
+    );
+    updateTrip({ ...trip, items: updatedItems });
+  };
+
   const handleDeleteItem = (itemId) => {
     if (!updateTrip) return;
     const updatedItems = items.filter(item => item.id !== itemId);
@@ -151,6 +160,16 @@ export default function PackingList({ trip, updateTrip }) {
                                 onChange={(e) => handleQuantityChange(item.id, e.target.value)}
                                 placeholder="1"
                               />
+                            </div>
+                            <div className="packing-item-weight">
+                              <input 
+                                type="number" 
+                                min="0"
+                                value={item.weight || 0}
+                                onChange={(e) => handleWeightChange(item.id, e.target.value)}
+                                placeholder="0"
+                              />
+                              <span className="weight-unit">g</span>
                             </div>
                             <button className="btn-delete-item" onClick={(e) => { e.stopPropagation(); handleDeleteItem(item.id); }} aria-label="Delete item">
                               <X size={16} strokeWidth={3} />
