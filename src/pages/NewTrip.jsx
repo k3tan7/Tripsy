@@ -21,23 +21,29 @@ export default function NewTripPage({ onAddTrip }) {
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [tripType, setTripType] = useState("City");
+  const [loadTemplate, setLoadTemplate] = useState(true);
   
   // Maintained color tag state to connect with previous design
   const [coverColor, setCoverColor] = useState(COLORS[0]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const templateItems = TEMPLATES[tripType] || [];
-    const initialItems = templateItems.map((itemName, index) => {
-      const foundCategory = CATEGORIES.find(c => c.defaultItems.includes(itemName));
-      return {
-        id: `item_${Date.now()}_${index}`,
-        name: itemName,
-        packed: false,
-        quantity: 1,
-        categoryId: foundCategory ? foundCategory.id : "cat_misc"
-      };
-    });
+    let initialItems = [];
+    
+    if (loadTemplate) {
+      const templateItems = TEMPLATES[tripType] || [];
+      initialItems = templateItems.map((itemName, index) => {
+        const foundCategory = CATEGORIES.find(c => c.defaultItems.includes(itemName));
+        return {
+          id: `item_${Date.now()}_${index}`,
+          name: itemName,
+          packed: false,
+          quantity: 1,
+          weight: 0,
+          categoryId: foundCategory ? foundCategory.id : "cat_misc"
+        };
+      });
+    }
 
     const newTrip = {
       id: Date.now().toString(),
@@ -126,6 +132,18 @@ export default function NewTripPage({ onAddTrip }) {
             <option value="City">City</option>
             <option value="Winter">Winter</option>
           </select>
+          
+          <div className="template-checkbox-wrapper">
+            <span className="template-msg">Templates available for {tripType} trips.</span>
+            <label className="template-label">
+              <input 
+                type="checkbox" 
+                checked={loadTemplate} 
+                onChange={(e) => setLoadTemplate(e.target.checked)} 
+              />
+              Load suggested items
+            </label>
+          </div>
         </div>
 
         <div className="form-group">
