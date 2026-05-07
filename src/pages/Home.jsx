@@ -18,8 +18,8 @@ export default function Home({ trips }) {
   return (
     <main className="home">
       <div className="home-header">
-        <h1 className="home-title">Trips & Packing Lists</h1>
-        <p className="home-subtitle">Keep track of your travel plans and packing essentials.</p>
+        <h1 className="home-title">Your Trips</h1>
+        <p className="home-subtitle">Organise, pack, and travel with confidence.</p>
       </div>
 
       <section className="home-trips">
@@ -74,6 +74,7 @@ export default function Home({ trips }) {
                       <MapPin size={12} style={{ display: 'inline', marginRight: '4px' }} />
                       {trip.destination}
                     </span>
+                    {trip.type && <span className="trip-card-type">{trip.type}</span>}
                   </div>
                   <h3 className="trip-card-name">{trip.name}</h3>
                   <p className="trip-card-desc">{trip.description}</p>

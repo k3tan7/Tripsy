@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import "./LastMinuteMode.css";
 
-const CRITICAL_CATEGORIES = ["cat_documents", "cat_medicine", "cat_electronics"];
+const CRITICAL_CATEGORIES = ["cat_documents", "cat_medicine", "cat_electronics", "cat_accessories"];
 
 export default function LastMinuteMode({ trip, updateTrip }) {
   const items = trip.items || [];

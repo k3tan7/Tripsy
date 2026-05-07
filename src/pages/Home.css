@@ -102,6 +102,23 @@
   text-transform: uppercase;
 }
 
+.trip-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trip-card-type {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+  text-transform: uppercase;
+  background: rgba(241, 100, 46, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+}
+
 .trip-card-name {
   font-size: 1.25rem;
   font-weight: 700;

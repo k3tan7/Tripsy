@@ -4,12 +4,14 @@ import { Search, MapPin } from "lucide-react";
 import PackingList from "../components/PackingList";
 import WeightTracker from "../components/WeightTracker";
 import LastMinuteMode from "../components/LastMinuteMode";
+import ReturnChecklist from "../components/ReturnChecklist";
 import "./TripDetailPage.css";
 
 export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLastMinuteMode, setIsLastMinuteMode] = useState(false);
+  const [viewMode, setViewMode] = useState("packing"); // packing | lastminute | return
   const [showSaveTemplate, setShowSaveTemplate] = useState(false);
   const [templateName, setTemplateName] = useState("");
   const [templateSaved, setTemplateSaved] = useState(false);
@@ -171,19 +173,31 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
       <WeightTracker items={trip.items} />
 
       <div className="trip-detail-actions">
-        <button 
-          className={`btn-toggle-lmm ${isLastMinuteMode ? 'active' : ''}`}
-          onClick={() => setIsLastMinuteMode(!isLastMinuteMode)}
-        >
-          {isLastMinuteMode ? "Exit Last-Minute Mode" : "Activate Last-Minute Mode"}
-        </button>
+        <div className="view-mode-tabs">
+          <button 
+            className={`view-mode-tab ${viewMode === 'packing' ? 'active' : ''}`}
+            onClick={() => setViewMode('packing')}
+          >
+            Packing List
+          </button>
+          <button 
+            className={`view-mode-tab ${viewMode === 'lastminute' ? 'active' : ''}`}
+            onClick={() => setViewMode('lastminute')}
+          >
+            Last-Minute
+          </button>
+          <button 
+            className={`view-mode-tab ${viewMode === 'return' ? 'active' : ''}`}
+            onClick={() => setViewMode('return')}
+          >
+            Return Trip
+          </button>
+        </div>
       </div>
 
-      {isLastMinuteMode ? (
-        <LastMinuteMode trip={trip} updateTrip={updateTrip} />
-      ) : (
-        <PackingList trip={trip} updateTrip={updateTrip} />
-      )}
+      {viewMode === 'packing' && <PackingList trip={trip} updateTrip={updateTrip} />}
+      {viewMode === 'lastminute' && <LastMinuteMode trip={trip} updateTrip={updateTrip} />}
+      {viewMode === 'return' && <ReturnChecklist trip={trip} updateTrip={updateTrip} />}
 
       <div className="save-template-section">
         {!showSaveTemplate ? (
