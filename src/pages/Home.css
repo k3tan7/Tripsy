@@ -5,14 +5,14 @@
 }
 
 .home-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .home-title {
   font-size: 2rem;
   font-weight: 800;
   color: var(--dark-purple);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .home-subtitle {
@@ -20,6 +20,37 @@
   font-size: 1rem;
 }
 
+/* Stats dashboard */
+.stats-dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dash-stat {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  text-align: center;
+}
+
+.dash-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--dark-purple);
+}
+
+.dash-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Trips section */
 .home-trips-header {
   display: flex;
   align-items: center;
@@ -30,7 +61,7 @@
 }
 
 .home-trips-title {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--dark-purple);
 }
@@ -59,6 +90,7 @@
   cursor: pointer;
 }
 
+/* Empty state */
 .home-empty {
   text-align: center;
   padding: 3rem 1rem;
@@ -78,10 +110,11 @@
   font-weight: 600;
 }
 
+/* Trip cards grid */
 .trips-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
 }
 
 .trip-card {
@@ -90,16 +123,30 @@
   border-radius: var(--radius);
   padding: 1.25rem;
   transition: all 0.2s ease;
-  border-top: 6px solid var(--card-color, var(--accent-purple));
+  border-top: 5px solid var(--card-color, var(--accent-purple));
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 }
 
-.trip-card-dest {
-  font-size: 0.8rem;
-  font-weight: 600;
+.trip-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(80, 78, 118, 0.12);
+}
+
+.trip-card-new {
+  border-top: 5px solid var(--border);
+  align-items: center;
+  justify-content: center;
   color: var(--text-secondary);
-  text-transform: uppercase;
+  gap: 0.5rem;
+  min-height: 180px;
+  border-style: dashed;
+}
+
+.trip-card-new:hover {
+  color: var(--dark-purple);
+  border-color: var(--dark-purple);
 }
 
 .trip-card-header {
@@ -108,65 +155,65 @@
   justify-content: space-between;
 }
 
+.trip-card-dest {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
 .trip-card-type {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: var(--accent-orange);
   text-transform: uppercase;
   background: rgba(241, 100, 46, 0.1);
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
-  letter-spacing: 0.03em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
 }
 
 .trip-card-name {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--dark-purple);
-  margin: 0.25rem 0 0.5rem;
 }
 
-.trip-card-desc {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.4;
-  margin-bottom: 1rem;
-  flex-grow: 1;
-}
-
-.trip-card-stats {
-  margin-bottom: 1rem;
-}
-
-.packing-progress {
-  display: inline-flex;
+.trip-card-progress {
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  background: var(--bg);
-  color: var(--dark-purple);
-  padding: 0.3rem 0.6rem;
-  border-radius: 6px;
-  border: 1px solid var(--border);
+  gap: 0.75rem;
+  margin-top: auto;
 }
 
-.progress-bar-container {
+.trip-card-progress-bar {
+  flex-grow: 1;
   height: 6px;
   background: var(--bg);
   border-radius: 3px;
-  margin-top: 0.75rem;
   overflow: hidden;
   border: 1px solid var(--border);
 }
 
-.progress-bar-fill {
+.trip-card-progress-fill {
   height: 100%;
+  background: var(--accent-green);
   transition: width 0.3s ease;
 }
 
+.trip-card-progress-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
 .trip-card-footer {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
   font-weight: 500;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
 }
