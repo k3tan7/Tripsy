@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { Search, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import PackingList from "../components/PackingList";
 import WeightTracker from "../components/WeightTracker";
 import LastMinuteMode from "../components/LastMinuteMode";
@@ -24,9 +24,8 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
   if (!trip) {
     return (
       <main className="trip-detail-notfound">
-        <Search className="notfound-icon" size={48} color="var(--text-secondary)" style={{margin: '0 auto'}} />
-        <h2>Trip record not found</h2>
-        <p>This itinerary does not exist or has been removed.</p>
+        <h2>Trip not found</h2>
+        <p>This trip does not exist or has been removed.</p>
         <Link to="/" className="btn-back">Return to Dashboard</Link>
       </main>
     );
@@ -39,24 +38,14 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
 
   const handleSaveTemplate = () => {
     if (!templateName.trim()) return;
-    try {
-      const existing = JSON.parse(localStorage.getItem("tripsy-templates") || "{}");
-      existing[templateName.trim()] = (trip.items || []).map(item => ({
-        name: item.name,
-        categoryId: item.categoryId || "cat_misc",
-        weight: item.weight || 0,
-        quantity: item.quantity || 1
-      }));
-      localStorage.setItem("tripsy-templates", JSON.stringify(existing));
-      setTemplateSaved(true);
-      setTemplateName("");
-      setTimeout(() => {
-        setTemplateSaved(false);
-        setShowSaveTemplate(false);
-      }, 2000);
-    } catch (err) {
-      console.error("Failed to save template", err);
-    }
+    const existing = JSON.parse(localStorage.getItem("tripsy-templates") || "{}");
+    existing[templateName.trim()] = (trip.items || []).map(({ name, categoryId, weight, quantity }) => ({
+      name, categoryId: categoryId || "cat_misc", weight: weight || 0, quantity: quantity || 1
+    }));
+    localStorage.setItem("tripsy-templates", JSON.stringify(existing));
+    setTemplateSaved(true);
+    setTemplateName("");
+    setTimeout(() => { setTemplateSaved(false); setShowSaveTemplate(false); }, 2000);
   };
 
   const handleDeleteTrip = () => {
@@ -80,9 +69,9 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
     const items = trip.items || [];
     const packed = items.filter(i => i.packed).map(i => `[x] ${i.name}`).join("\n");
     const unpacked = items.filter(i => !i.packed).map(i => `[ ] ${i.name}`).join("\n");
-    const text = `${trip.name} - Packing List\n${trip.destination}\n\nPacked:\n${packed || "(none)"}\n\nStill to pack:\n${unpacked || "(none)"}`;
+    const text = `${trip.name} — ${trip.destination}\n\nPacked:\n${packed || "(none)"}\n\nStill to pack:\n${unpacked || "(none)"}`;
     navigator.clipboard.writeText(text).then(() => {
-      setExportMsg("Copied to clipboard");
+      setExportMsg("Copied!");
       setTimeout(() => setExportMsg(""), 2000);
     });
   };
@@ -90,20 +79,16 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
   return (
     <main className="trip-detail">
       <button className="btn-back-nav" onClick={() => navigate(-1)}>
-        &larr; Back to Trips
+        &larr; Back
       </button>
 
       <div className="trip-detail-card" style={{ "--banner-color": trip.coverColor }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span className="trip-detail-dest" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <MapPin size={16} />
+        <div className="trip-card-top-row">
+          <span className="trip-detail-dest">
+            <MapPin size={14} />
             {trip.destination}
           </span>
-          {trip.type && (
-            <span className="trip-detail-type" style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--accent-orange)', textTransform: 'uppercase' }}>
-              {trip.type}
-            </span>
-          )}
+          {trip.type && <span className="trip-detail-type">{trip.type}</span>}
         </div>
 
         {isEditing ? (
@@ -117,64 +102,52 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
               <input type="text" value={editDestination} onChange={(e) => setEditDestination(e.target.value)} />
             </div>
             <div className="edit-actions">
-              <button className="btn-primary" onClick={handleSaveEdit}>Save Changes</button>
+              <button className="btn-primary" onClick={handleSaveEdit}>Save</button>
               <button className="btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
             </div>
           </div>
         ) : (
           <>
             <h1 className="trip-detail-name">{trip.name}</h1>
-            {trip.description && (
-              <p className="trip-detail-desc">{trip.description}</p>
-            )}
+            {trip.description && <p className="trip-detail-desc">{trip.description}</p>}
           </>
         )}
 
         <div className="trip-detail-stats">
           {trip.startDate && (
             <div className="stat">
-              <span className="stat-label">Start Date</span>
+              <span className="stat-label">Start</span>
               <span className="stat-value">
-                {new Date(trip.startDate).toLocaleDateString("en-US", {
-                  weekday: "short",
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
+                {new Date(trip.startDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
               </span>
             </div>
           )}
           {trip.endDate && (
             <div className="stat">
-              <span className="stat-label">End Date</span>
+              <span className="stat-label">End</span>
               <span className="stat-value">
-                {new Date(trip.endDate).toLocaleDateString("en-US", {
-                  weekday: "short",
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
+                {new Date(trip.endDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
               </span>
             </div>
           )}
           {nights !== null && (
             <div className="stat">
               <span className="stat-label">Duration</span>
-              <span className="stat-value">{nights} nights</span>
+              <span className="stat-value">{nights} night{nights !== 1 ? "s" : ""}</span>
             </div>
           )}
         </div>
 
         {!isEditing && (
           <div className="trip-card-manage">
-            <button className="btn-edit-trip" onClick={handleStartEdit}>Edit Trip</button>
+            <button className="btn-edit-trip" onClick={handleStartEdit}>Edit</button>
             {!showDeleteConfirm ? (
-              <button className="btn-delete-trip" onClick={() => setShowDeleteConfirm(true)}>Delete Trip</button>
+              <button className="btn-delete-trip" onClick={() => setShowDeleteConfirm(true)}>Delete</button>
             ) : (
               <div className="delete-confirm">
                 <span>Are you sure?</span>
-                <button className="btn-confirm-yes" onClick={handleDeleteTrip}>Yes, Delete</button>
-                <button className="btn-secondary" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
+                <button className="btn-confirm-yes" onClick={handleDeleteTrip}>Yes</button>
+                <button className="btn-secondary" onClick={() => setShowDeleteConfirm(false)}>No</button>
               </div>
             )}
           </div>
@@ -185,36 +158,26 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
 
       <div className="trip-detail-actions">
         <div className="view-mode-tabs">
-          <button 
-            className={`view-mode-tab ${viewMode === 'packing' ? 'active' : ''}`}
-            onClick={() => setViewMode('packing')}
-          >
-            Packing List
-          </button>
-          <button 
-            className={`view-mode-tab ${viewMode === 'lastminute' ? 'active' : ''}`}
-            onClick={() => setViewMode('lastminute')}
-          >
-            Last-Minute
-          </button>
-          <button 
-            className={`view-mode-tab ${viewMode === 'return' ? 'active' : ''}`}
-            onClick={() => setViewMode('return')}
-          >
-            Return Trip
-          </button>
+          {["packing", "lastminute", "return"].map(mode => (
+            <button
+              key={mode}
+              className={`view-mode-tab ${viewMode === mode ? "active" : ""}`}
+              onClick={() => setViewMode(mode)}
+            >
+              {mode === "packing" ? "Packing List" : mode === "lastminute" ? "Last-Minute" : "Return Trip"}
+            </button>
+          ))}
         </div>
       </div>
 
-      {viewMode === 'packing' && <PackingList trip={trip} updateTrip={updateTrip} />}
-      {viewMode === 'lastminute' && <LastMinuteMode trip={trip} updateTrip={updateTrip} />}
-      {viewMode === 'return' && <ReturnChecklist trip={trip} updateTrip={updateTrip} />}
+      {viewMode === "packing" && <PackingList trip={trip} updateTrip={updateTrip} />}
+      {viewMode === "lastminute" && <LastMinuteMode trip={trip} updateTrip={updateTrip} />}
+      {viewMode === "return" && <ReturnChecklist trip={trip} updateTrip={updateTrip} />}
 
       <div className="trip-bottom-actions">
         <button className="btn-export" onClick={handleExport}>
-          {exportMsg || "Export Packing List"}
+          {exportMsg || "Export List"}
         </button>
-
         {!showSaveTemplate ? (
           <button className="btn-save-template" onClick={() => setShowSaveTemplate(true)}>
             Save as Template
@@ -222,15 +185,10 @@ export default function TripDetailPage({ trips, updateTrip, deleteTrip }) {
         ) : (
           <div className="save-template-form">
             {templateSaved ? (
-              <p className="template-saved-msg">Template saved successfully.</p>
+              <p className="template-saved-msg">Saved!</p>
             ) : (
               <>
-                <input
-                  type="text"
-                  value={templateName}
-                  onChange={(e) => setTemplateName(e.target.value)}
-                  placeholder="Enter template name"
-                />
+                <input type="text" value={templateName} onChange={(e) => setTemplateName(e.target.value)} placeholder="Template name" />
                 <button className="btn-primary" onClick={handleSaveTemplate}>Save</button>
                 <button className="btn-secondary" onClick={() => { setShowSaveTemplate(false); setTemplateName(""); }}>Cancel</button>
               </>

@@ -188,14 +188,6 @@
   text-transform: uppercase;
 }
 
-.item-weight-display {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  min-width: 45px;
-  text-align: right;
-}
-
 .checkbox {
   width: 18px;
   height: 18px;

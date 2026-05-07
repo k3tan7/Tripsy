@@ -113,7 +113,6 @@ export default function PackingList({ trip, updateTrip }) {
                                 onChange={(e) => handleQuantityChange(item.id, e.target.value)}
                               />
                             </div>
-                            <span className="item-weight-display">{((item.weight || 0) * (item.quantity || 1)) / 1000} kg</span>
                             <button className="btn-delete-item" onClick={(e) => { e.stopPropagation(); handleDeleteItem(item.id); }}>
                               <X size={14} strokeWidth={3} />
                             </button>

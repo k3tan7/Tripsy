@@ -1,7 +1,8 @@
 .new-trip {
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 5rem;
+  padding: 2rem 1.5rem 4rem;
 }
 
 .new-trip-title {

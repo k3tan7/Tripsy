@@ -5,35 +5,29 @@ import Home from "./pages/Home";
 import NewTripPage from "./pages/NewTrip";
 import TripDetailPage from "./pages/TripDetailPage";
 import sampleTrips from "./data/sampleTrips";
+import { ITEM_WEIGHTS, CATEGORIES } from "./data/tripsData";
 import "./index.css";
 
 const STORAGE_KEY = "tripsy-trips";
 
 export default function App() {
-  // Initialize trips state from localStorage using a function
   const [trips, setTrips] = useState(() => {
+    let loadedTrips = sampleTrips;
     try {
-      const savedTrips = localStorage.getItem(STORAGE_KEY);
-      if (savedTrips) {
-        return JSON.parse(savedTrips);
-      }
-    } catch (error) {
-      console.error("Failed to parse trips from localStorage during init:", error);
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) loadedTrips = JSON.parse(saved);
+    } catch (e) {
+      console.error("Failed to load trips:", e);
     }
-    return sampleTrips;
+    // Backfill missing weights and categoryIds
+    return loadedTrips.map(trip => ({
+      ...trip,
+      items: (trip.items || []).map(item => {
+        const catId = item.categoryId || (CATEGORIES.find(c => c.defaultItems.includes(item.name))?.id) || "cat_misc";
+        return { ...item, weight: item.weight || ITEM_WEIGHTS[item.name] || 0, categoryId: catId };
+      })
+    }));
   });
-
-  // Load trips from localStorage on initial render
-  useEffect(() => {
-    try {
-      const savedTrips = localStorage.getItem(STORAGE_KEY);
-      if (savedTrips) {
-        setTrips(JSON.parse(savedTrips));
-      }
-    } catch (error) {
-      console.error("Failed to load trips from localStorage on mount:", error);
-    }
-  }, []);
 
   // Save trips to localStorage whenever the trips state changes
   useEffect(() => {
