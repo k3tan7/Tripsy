@@ -155,14 +155,6 @@ App.jsx (trips state + localStorage sync)
 
 ---
 
-## Team
-
-| Name | Role | Branch |
-|---|---|---|
-| Ketan | Developer | Ketan_work |
-
----
-
 ## License
 
 This project is built for academic purposes.
