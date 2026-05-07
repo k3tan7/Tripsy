@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TEMPLATES } from "../data/tripsData";
+import { TEMPLATES, CATEGORIES } from "../data/tripsData";
 import "./NewTrip.css";
 
 // Colors from the user's palette
@@ -28,11 +28,16 @@ export default function NewTripPage({ onAddTrip }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const templateItems = TEMPLATES[tripType] || [];
-    const initialItems = templateItems.map((itemName, index) => ({
-      id: `item_${Date.now()}_${index}`,
-      name: itemName,
-      packed: false,
-    }));
+    const initialItems = templateItems.map((itemName, index) => {
+      const foundCategory = CATEGORIES.find(c => c.defaultItems.includes(itemName));
+      return {
+        id: `item_${Date.now()}_${index}`,
+        name: itemName,
+        packed: false,
+        weight: 0,
+        categoryId: foundCategory ? foundCategory.id : "cat_misc"
+      };
+    });
 
     const newTrip = {
       id: Date.now().toString(),

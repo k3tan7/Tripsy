@@ -18,6 +18,15 @@ export default function PackingList({ trip, updateTrip }) {
     updateTrip({ ...trip, items: updatedItems });
   };
 
+  const handleWeightChange = (itemId, weightStr) => {
+    if (!updateTrip) return;
+    const weight = parseInt(weightStr, 10) || 0;
+    const updatedItems = items.map(item => 
+      item.id === itemId ? { ...item, weight } : item
+    );
+    updateTrip({ ...trip, items: updatedItems });
+  };
+
   const handleAddItem = (e, categoryId) => {
     e.preventDefault();
     if (!newItemName.trim() || !updateTrip) return;
@@ -25,6 +34,7 @@ export default function PackingList({ trip, updateTrip }) {
       id: `item_${Date.now()}`, 
       name: newItemName, 
       packed: false,
+      weight: 0,
       categoryId 
     };
     updateTrip({ ...trip, items: [...items, newItem] });
@@ -101,11 +111,23 @@ export default function PackingList({ trip, updateTrip }) {
                   ) : (
                     <ul className="packing-items">
                       {category.items.map(item => (
-                        <li key={item.id} className={`packing-item ${item.packed ? 'packed' : ''}`} onClick={() => handleToggleItem(item.id)}>
-                          <button className="checkbox" tabIndex={-1}>
-                            {item.packed && <Check size={14} strokeWidth={4} />}
-                          </button>
-                          <span className="item-name">{item.name}</span>
+                        <li key={item.id} className={`packing-item ${item.packed ? 'packed' : ''}`}>
+                          <div className="packing-item-left" onClick={() => handleToggleItem(item.id)}>
+                            <button className="checkbox" tabIndex={-1}>
+                              {item.packed && <Check size={14} strokeWidth={4} />}
+                            </button>
+                            <span className="item-name">{item.name}</span>
+                          </div>
+                          <div className="packing-item-weight">
+                            <input 
+                              type="number" 
+                              min="0"
+                              value={item.weight || 0}
+                              onChange={(e) => handleWeightChange(item.id, e.target.value)}
+                              placeholder="0"
+                            />
+                            <span className="weight-unit">g</span>
+                          </div>
                         </li>
                       ))}
                     </ul>
